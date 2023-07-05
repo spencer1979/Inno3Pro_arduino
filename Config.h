@@ -415,6 +415,9 @@
      Detection Frequency Register                   */
 #define INNO3PRO_ISSC                   0xA2
 
+/** Output Short-Circuit Fault Detection              */
+#define INNO3PRO_CCSC                   0x20
+
 /**  UVL Fault Timer Register						*/
 #define INNO3PRO_UVL_TIMER              0xA4
 

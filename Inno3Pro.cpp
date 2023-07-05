@@ -606,6 +606,12 @@ void Inno3Pro_Application::Inno3Pro_Write_ISSC_Fault_Response(uint16_t u16Respon
     Inno3ProSend.I2C_Write16(INNO3PRO_ADDRESS, INNO3PRO_ISSC, u8_Buffer_ISSC, WR_BYTE);  		
 }
 
+void Inno3Pro_Application::Inno3Pro_Write_CCSC_Fault_Response(uint16_t u16Response)
+{			
+    Inno3Pro_Encode_Buffer((uint16_t)u16Response ,u8_Buffer_CCSC);
+    Inno3ProSend.I2C_Write16(INNO3PRO_ADDRESS, INNO3PRO_CCSC, u8_Buffer_CCSC, WR_BYTE);  		
+}
+
 void Inno3Pro_Application::Inno3Pro_Write_UVL_Fault_Timer(uint16_t u16Timer)
 {			
     Inno3Pro_Encode_Buffer((uint16_t)u16Timer ,u8_Buffer_UVL_TIMER);

@@ -431,8 +431,21 @@ class Inno3Pro_Application
 				None
 		*/           
         void Inno3Pro_Write_ISSC_Fault_Response(uint16_t u16Response, uint16_t u16Frequency);
-                
-        
+
+        /**
+         * @brief 
+		 * 	Output Short-Circuit Fault Detection
+		 * 
+		 * @details
+		 * 	The CCSC register can be programmed to have
+		 * 	response of a (a.) No Fault or (b.) Auto-Restart. The default response
+		 *	for this command register is Auto-restart.  
+         * @note
+		 * 
+         * @param 
+		 * 		u16Response - Fault Response setting of the Device
+         */
+        void Inno3Pro_Write_CCSC_Fault_Response(uint16_t u16Response);
 		/**
 			@brief
                 Under Voltage Fault Timer Setting
@@ -664,7 +677,7 @@ class Inno3Pro_Application
                 True   - Update process complete \n
                 False  - Update process not yet complete
 		*/
-		bool Inno3Pro_Write_VI(float fSetPtCV, float fSetPtCC);       
+		bool Inno3Pro_Write_VI(float fSetPtCV, float fSetPtCC);
         
 
 		/**
@@ -2015,6 +2028,7 @@ class Inno3Pro_Application
 		uint8_t u8_Buffer_OVL[2]                   ={0};
 		uint8_t u8_Buffer_UVL[2]                   ={0};
 		uint8_t u8_Buffer_ISSC[2]                  ={0};
+		uint8_t u8_Buffer_CCSC[2]                  ={0};
 		uint8_t u8_Buffer_UVL_TIMER[2]             ={0};
 		uint8_t u8_Buffer_WATCHDOG_TIMER[2]        ={0};
 		

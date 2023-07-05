@@ -676,7 +676,7 @@
 //INNO3-PRO  COMPUTATION MACROS
 
 /** Current Sense Resistor in	milli Ohm  */
-#define INNO3PRO_RSENSE                          (float)(5.25)  
+#define INNO3PRO_RSENSE                          (float)(9.0)  
 
 /** Current Sense Resistor Full Range Voltage in mV  */
 #define INNO3PRO_FULL_RANGE_RSENSE_VOLTAGE       (float)(31.1) 
