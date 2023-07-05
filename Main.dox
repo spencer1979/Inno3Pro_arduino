@@ -1,0 +1,331 @@
+
+/** \example Inno3Pro_Basic.ino
+ * This the Basic example of how to use the library.
+ */
+ 
+ /** \example Inno3Pro_Basic_Volts_Amps_OV_UV.ino
+ * This the Basic example of how to use the library.
+ */
+ 
+ 
+/** 
+ * This is an example of how to use the library.
+ 
+   <H1>
+		Waveform:
+   </H1>
+   
+   @image html Inno3Pro_PD_5V_8V_15V_20V.png
+   
+   <BR>
+   <H1>
+		Code:
+   </H1>   
+   @example Inno3Pro_PD_5V_8V_15V_20V.ino
+
+ */
+ 
+ 
+ 
+/** 
+ * This is an example of how to use the library.	
+  
+   <H1>
+		Waveform:
+   </H1>
+   
+   @image html Inno3Pro_Ramp.png
+   
+   <BR>
+   <H1>
+		Code:
+   </H1>   
+   @example Inno3Pro_Ramp.ino
+   
+ */
+ 
+ 
+ 
+ /** \example Inno3Pro_Serial.ino
+ * This is an example of how to use the library.
+ 
+   <H1>
+		Serial Application:
+   </H1>
+   
+   @image html Inno3Pro_Serial.png
+   
+   <BR>
+   <H1>
+		Code:
+   </H1>   
+   @example Inno3Pro_Serial.ino 
+ */
+ 
+ 
+ 
+  /** \example Inno3Pro_Plotter.ino
+ * This is an example of how to use the library.
+ 
+   <H1>
+		Plotter Application:
+   </H1>
+   
+   @image html Inno3Pro_Plotter.png
+   
+   <BR>
+   <H1>
+		Code:
+   </H1>   
+   @example Inno3Pro_Plotter.ino 
+ */
+ 
+   /** \example Inno3Pro_SineWave.ino
+ * This is an example of how to use the library.
+ 
+   <H1>
+		Sinewave Generation:
+   </H1>
+   
+   @image html Inno3Pro_SineWave.png
+   
+   <BR>
+   <H1>
+		Code:
+   </H1>   
+   @example Inno3Pro_SineWave.ino 
+ */
+ 
+ 
+ 
+
+/**
+  @mainpage Library Reference
+  
+  @section section_1 Step by Step Guide
+  <BR>
+  
+  
+  @subsection SubSection_1 Step 1:  Header Files Inclusion
+  Add the InnoSwitch3-Pro Header Files.
+  @code
+		#include <Drv_Rtc.h>
+		#include <Drv_i2c.h>
+		#include <Inno3Pro.h>
+		#include <Config.h>
+  @endcode
+  <BR>
+  
+  
+  @subsection SubSection_2 Step 2: Class Instance Creation
+  Construct a Class instance to call the functions inside Inno3Pro_Application.    
+  <BR>
+  Construction of Class instance of Inno3Pro_Rtc is Optional. 
+  @code
+		Inno3Pro_Application 	Inno3ProApp;		
+		Inno3Pro_Rtc 			Inno3ProClk;
+  @endcode
+  <BR>
+  
+  
+  @subsection SubSection_3 Step 3: Initialization
+  Checks if InnoSwitch3-Pro is ready to communicate and then Write the Initial Commands
+  
+	<ul>
+	  <li>I2C Clock Frequency  - Set to 400Khz</li>
+	  <li>Fast VI Command 	   - No Speed Limit</li>
+	  <li>UVL Timer 	   - 64ms</li>		  
+	  <li>Watchdog Timer 	   - Disabled</li>	
+	</ul> 
+  @code
+		void setup() 
+		{
+			Inno3ProApp.Inno3Pro_Initialization(); 
+		}
+  @endcode
+  <BR> 
+  
+  
+  
+  @subsection SubSection_4 Step 4: Control Functions Setup
+  Use the Control Functions On the Main Loop to Command InnoSwitch3-Pro.
+  <BR>
+  <BR>   
+  
+  
+  <B>
+  Updates the Output Voltage and Constant Current Setting 
+  </B>
+  
+	<ul>
+	  <li>Follows a certain sequence of I2C commands in order to avoid inadvertent triggering of UV or OV faults</li>
+	  <li>Controls the VOUT pin strong bleeder when Decreasing the voltage from High to Low Setting</li>		  
+	  <li>Automatically updates the Over Voltage (OVA) and Under Voltage (UVA) settings</li>
+	  <ul>
+		  <li>OVA  is 124% of CV Setpoint</li>
+		  <li>UVA is Fixed to 3V setting </li>
+	  </ul>
+	</ul>  
+  @code
+		Inno3ProApp.Inno3Pro_Write_VI( Volts, Amps )                  
+  @endcode 
+  <BR>
+  
+  <B>
+  Updates the Output Voltage without Bleeder Control
+  </B>
+  
+  @code
+		Inno3ProApp.Inno3Pro_Write_Volts( Volts )                  
+  @endcode 
+  <BR>
+  
+  <B>
+  Sets the Constant Current Setting
+  </B>
+  
+  @code
+		Inno3ProApp.Inno3Pro_Write_Amps( Amps )                  
+  @endcode 
+  <BR>  
+  
+  <B>
+  Sets the Over Voltage Setting
+  </B>
+  
+  @code
+		Inno3ProApp.Inno3Pro_Write_Over_Volts( Value )                  
+  @endcode 
+  <BR>    
+    
+  <B>
+  Sets the Under Voltage Setting
+  </B>
+  
+  @code
+		Inno3ProApp.Inno3Pro_Write_Under_Volts( Value )                  
+  @endcode 
+  <BR>    
+  
+  <B>
+  Sets the Cable Drop Compesation Value
+  </B>
+  
+  @code
+		Inno3ProApp.Inno3Pro_Write_Cable_Drop_Comp( Value )                    
+  @endcode 
+  <BR>
+  
+  
+  <B>  
+  Sets the Constant Output Power Threshold
+  </B>  
+  @code
+		Inno3ProApp.Inno3Pro_Write_Volt_Peak( Value )                    
+  @endcode 
+  <BR>
+
+  
+  <B>  
+  Used for Turning On or Off the Bus Voltage Switch
+  </B>   
+  @code
+		Inno3ProApp.Inno3Pro_Vbus_Switch_Control( Value )                   
+  @endcode 		         
+  <BR>		
+
+  <B>  
+  Used for Turning On or Off the VOUT pin strong bleeder 
+  </B>   
+	<ul>
+	  <li>  
+			The BLEEDER must not be enabled for extended period of
+			time to prevent excessive power dissipation in the controller 
+	  </li>
+	</ul>   
+
+  @code
+		Inno3ProApp.Inno3Pro_Bleeder_Enable( Value )                   
+  @endcode 		         
+  <BR>
+  @subsection SubSection_5 Step 5: Telemetry Functions Setup (Optional)
+  Use the Telemetry Functions On the Main Loop to Read the Registers of InnoSwitch3-Pro
+  <BR>
+  <BR>  
+  
+  <B>  
+  Used for Reading the desired Register Address
+  </B>   
+  @code
+		Inno3ProApp.Inno3Pro_Telemetry(Register_Address)                  
+  @endcode 		         
+  <BR>		
+
+  
+    <B>  
+  Used for Reading the Specific Bit of Telemetry Register
+  </B>   
+  @code
+		Inno3ProApp.Inno3Pro_Read_Bit(Register_Address , Bit)                  
+  @endcode 		         
+  <BR>		
+  
+  
+  <B>  
+  Tells when InnoSwitch3-Pro is ready 
+  to communicate and accept commands
+  </B>   
+  @code
+		 Inno3ProApp.Inno3Pro_Read_Status_SystemReady()                   
+  @endcode 		         
+  <BR>		
+  
+  
+  <B>  
+  Returns the measured output voltage
+  </B>   
+  @code
+		   Inno3ProApp.Inno3Pro_Read_Volts()                    
+  @endcode 		         
+  <BR>	
+
+  
+  <B>  
+  Returns the measured output current
+  </B>   
+  @code
+		   Inno3ProApp.Inno3Pro_Read_Amps()                    
+  @endcode 		         
+  <BR>		
+
+  
+  <B>  
+  Returns the VOUT2PCT status information
+  </B>   
+	<ul>
+	  <li>  
+			VOUT2PCT status is used to disable 
+			the VOUT pin strong bleeder
+	  </li>
+	</ul> 
+  @code
+		   Inno3ProApp.Inno3Pro_Read_Status_Vout2pct()                    
+  @endcode 		         
+  <BR>		
+  @subsection SubSection_6 Basic Code Example:    
+  <B>  
+  This code example is to demonstrate the basic usage of InnoSwitch3-Pro Code Library. 
+  </B>   
+  
+	<ul>
+		 <li>	Initial commands are sent using the InnoSwitch3-Pro Initialization Routine. </li>	
+		 <li>  	The Main Routine sets the output voltage to 5V  and constant current current to 5.6A.   </li>			
+		 <li>  	Cable Drop Compensation is programmed to 300mV.	</li>	
+		 <li>  	Constant power is knee voltage is set to 7V and then Vbus Switch is turned ON.	</li>		
+	</ul>  
+	<BR>	
+  @image html Basic_Example.png
+
+  
+ */
+ 

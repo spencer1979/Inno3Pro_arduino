@@ -1,0 +1,141 @@
+#######################################
+# Syntax Coloring Map For Inno3Pro_Arduino
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+Inno3Pro_Application		KEYWORD1
+Inno3Pro_Rtc				KEYWORD1
+Inno3Pro_I2C				KEYWORD1
+
+Inno3ProApp					KEYWORD1
+Inno3ProClk					KEYWORD1
+Inno3ProTx					KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+
+Inno3Pro_Initialization								KEYWORD2
+
+Inno3Pro_Vbus_Switch_Control         				KEYWORD2
+Inno3Pro_Bleeder_Enable             				KEYWORD2 
+Inno3Pro_Load_Discharge             				KEYWORD2 
+Inno3Pro_TurnOff_PSU                				KEYWORD2 
+Inno3Pro_FastVI_Disable              				KEYWORD2
+Inno3Pro_CVOnlyMode_Enable 							KEYWORD2
+
+Inno3Pro_Write_VI    								KEYWORD2
+Inno3Pro_Write_Volts								KEYWORD2
+Inno3Pro_Write_Over_Volts							KEYWORD2
+Inno3Pro_Write_Under_Volts							KEYWORD2
+Inno3Pro_Write_Cable_Drop_Comp
+Inno3Pro_Write_Amps									KEYWORD2
+Inno3Pro_Write_Volt_Peak
+
+Inno3Pro_Write_OVL_Fault_Response					KEYWORD2
+Inno3Pro_Write_UVL_Fault_Response					KEYWORD2
+Inno3Pro_Write_ISSC_Fault_Response					KEYWORD2
+Inno3Pro_Write_UVL_Fault_Timer 						KEYWORD2
+Inno3Pro_Write_Watchdog_Timer 						KEYWORD2
+Inno3Pro_Write_CVOL_Fault_Response					KEYWORD2
+Inno3Pro_Write_CVOL_Fault_Timer						KEYWORD2
+Inno3Pro_Write_Interupt_Mask						KEYWORD2
+Inno3Pro_Write_OTP_Hysteresis						KEYWORD2
+Inno3Pro_Write_CV_Load								KEYWORD2
+Inno3Pro_Write_Loop_Speed1 							KEYWORD2
+Inno3Pro_Write_Loop_Speed2 							KEYWORD2
+
+
+Inno3Pro_Telemetry         							KEYWORD2                 
+Inno3Pro_Read_Bit           						KEYWORD2       
+Inno3Pro_Read_Byte									KEYWORD2
+Inno3Pro_Read_2Bits        							KEYWORD2
+Inno3Pro_Read_SetPoint								KEYWORD2
+
+Inno3Pro_Read_CV_SetPoint							KEYWORD2
+Inno3Pro_Read_UV_Threshold							KEYWORD2
+Inno3Pro_Read_OV_Threshold							KEYWORD2
+
+Inno3Pro_Read_VbusSwitch							KEYWORD2
+Inno3Pro_Read_Bleeder       						KEYWORD2 
+Inno3Pro_Read_PsuOff  								KEYWORD2
+Inno3Pro_Read_FastVI  								KEYWORD2
+Inno3Pro_Read_CvoMode       						KEYWORD2   
+Inno3Pro_Read_OtpFaultHyst  						KEYWORD2
+Inno3Pro_Read_Cable_Drop_Comp						KEYWORD2
+
+Inno3Pro_Read_CC_SetPoint  							KEYWORD2
+Inno3Pro_Read_CP_Threshold        					KEYWORD2
+
+Inno3Pro_Read_OV_Fault_Response						KEYWORD2
+Inno3Pro_Read_UV_Fault_Response						KEYWORD2
+Inno3Pro_Read_IsPinShort_Fault_Response				KEYWORD2
+Inno3Pro_Read_UV_Fault_Timer						KEYWORD2
+Inno3Pro_Read_Watchdog_Timer    					KEYWORD2
+Inno3Pro_Read_CvMode_Fault_Response					KEYWORD2
+Inno3Pro_Read_CvMode_Timer							KEYWORD2
+
+Inno3Pro_Read_Amps									KEYWORD2
+
+Inno3Pro_Read_Volts 								KEYWORD2
+
+Inno3Pro_Read_Status_InterruptEnable 				KEYWORD2              
+Inno3Pro_Read_Status_SystemReady					KEYWORD2
+Inno3Pro_Read_Status_OutputDischarge				KEYWORD2
+Inno3Pro_Read_Status_HighSwitchFreq					KEYWORD2
+Inno3Pro_Read_Status_OtpFault						KEYWORD2	
+Inno3Pro_Read_Status_Vout2pct      				 	KEYWORD2
+Inno3Pro_Read_Status_Vout10pct  					KEYWORD2
+Inno3Pro_Read_Status_IsPinShort						KEYWORD2
+Inno3Pro_Read_Status_UV_Fault						KEYWORD2
+Inno3Pro_Read_Status_OV_Fault						KEYWORD2	
+
+Inno3Pro_Read_Status_CvoMode_AR						KEYWORD2
+Inno3Pro_Read_Status_IsPinShort_AR					KEYWORD2
+Inno3Pro_Read_Status_OV_AR							KEYWORD2
+Inno3Pro_Read_Status_UV_AR							KEYWORD2
+Inno3Pro_Read_Status_LatchOff						KEYWORD2
+Inno3Pro_Read_Status_CvoMode_LO						KEYWORD2
+Inno3Pro_Read_Status_PsuOffCmd						KEYWORD2
+Inno3Pro_Read_Status_IsPinShort_LO					KEYWORD2
+Inno3Pro_Read_Status_OV_LO							KEYWORD2
+Inno3Pro_Read_Status_UV_LO							KEYWORD2
+Inno3Pro_Read_Status_BPS_LO							KEYWORD2
+
+Inno3Pro_Read_Interrupt_Mask_CntrlSecondary			KEYWORD2
+Inno3Pro_Read_Interrupt_Mask_BpsCurrentLo  			KEYWORD2    
+Inno3Pro_Read_Interrupt_Mask_CvoPkLoadTimer 		KEYWORD2        
+Inno3Pro_Read_Interrupt_Mask_IsPinShort  			KEYWORD2       
+Inno3Pro_Read_Interrupt_Mask_UV   					KEYWORD2               
+Inno3Pro_Read_Interrupt_Mask_OV  					KEYWORD2       
+Inno3Pro_Read_Interrupt_Stat_CntrlSecondary 		KEYWORD2        
+Inno3Pro_Read_Interrupt_Stat_BpsCurrentLo   		KEYWORD2      
+Inno3Pro_Read_Interrupt_Stat_CvoPkLoadTimer  		KEYWORD2       
+Inno3Pro_Read_Interrupt_Stat_IsPinShort  			KEYWORD2       
+Inno3Pro_Read_Interrupt_Stat_UV     				KEYWORD2    
+Inno3Pro_Read_Interrupt_Stat_OV  					KEYWORD2
+
+Inno3Pro_Read_AmpsAverage      						KEYWORD2
+Inno3Pro_Read_VoltsAverage      					KEYWORD2 
+Inno3Pro_Read_Voltage_DAC							KEYWORD2
+
+clock_HasTimeElapsedMs								KEYWORD2
+clock_GetTimeStampMs								KEYWORD2
+clock_HasTimeElapsedUs								KEYWORD2
+clock_GetTimeStampUs								KEYWORD2
+
+I2C_Write16											KEYWORD2
+I2C_Read8											KEYWORD2
+I2C_Read16											KEYWORD2
+
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
