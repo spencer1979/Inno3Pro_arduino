@@ -30,127 +30,51 @@
     THIS SOFTWARE CODE LIBRARY.
      
  */
- 
 #if ARDUINO >= 100
- #include "Arduino.h"
+#include "Arduino.h"
 #else
- #include "WProgram.h"
+#include "WProgram.h"
 #endif
-
 #include <Wire.h>
 #include "Drv_i2c.h"
 
-
+// 寫入 16-bit 數據
 void Inno3Pro_I2C::I2C_Write16(uint8_t slaveAddress, uint8_t dataAddress, uint8_t *dataBuffer, uint8_t buflen)
 {
-    //150us Delay On Every I2C Transaction
-    delayMicroseconds(150); 
-	Wire.beginTransmission((uint8_t)slaveAddress);
-
-  #if ARDUINO >= 100
-	Wire.write((uint8_t)dataAddress); // send address	
-	Wire.write((uint8_t)dataBuffer[0]); 
-	if(buflen == 3)
-	{
-		Wire.write((uint8_t)dataBuffer[1]);  
-	}
-  #else
-	Wire.send((uint8_t)dataAddress); // send address	
-	Wire.send((uint8_t)dataBuffer[0]); 
-	if(buflen == 3)
-	{
-		Wire.send((uint8_t)dataBuffer[1]);  
-	}
-  #endif
-  
-  Wire.endTransmission();
+   Wire.beginTransmission(slaveAddress); // 開始傳輸
+   Wire.write(dataAddress);             // 發送寄存器位址
+   Wire.write(dataBuffer[0]);           // 寫入低位元組
+   if (buflen == 3) {                   // 如果 buflen=3，表示有第二個位元組
+       Wire.write(dataBuffer[1]);       // 寫入高位元組
+   }
+   Wire.endTransmission();              // 結束傳輸
+   delayMicroseconds(150);             // 傳輸後延遲
 }
 
-
-
-
+// 讀取 8-bit 數據
 uint8_t Inno3Pro_I2C::I2C_Read8(uint8_t slaveAddress, uint8_t dataAddress) 
 {
-  //150us Delay On Every I2C Transaction
-   delayMicroseconds(150); 	
-  uint8_t ret;
+   Wire.beginTransmission(slaveAddress); // 開始傳輸
+   Wire.write(0x80);                    // PI Command Address (設備要求)
+   Wire.write(dataAddress);             // 發送寄存器位址
+   Wire.write(dataAddress);             // 再次發送寄存器位址 (設備要求)
+   Wire.endTransmission(false);         // 重啟條件 (no STOP)
 
- Wire.beginTransmission(slaveAddress); // start transmission to device 
- 
-#if (ARDUINO >= 100)
-  Wire.write(0x80); 			// PI Command Address
-  Wire.write(dataAddress); 		// sends register address to read from
-  Wire.write(dataAddress); 		// sends register address to read from  
-#else
-  Wire.write(0x80); 			// PI Command Address
-  Wire.send(dataAddress); 		// sends register address to read from
-  Wire.send(dataAddress); 		// sends register address to read from  
-#endif
-  Wire.endTransmission(); 		// end transmission
-  
-  
-  Wire.beginTransmission(slaveAddress); // start transmission to device 
-  Wire.requestFrom(slaveAddress, (uint8_t)0x01);	// send data n-bytes read
-  
-#if (ARDUINO >= 100)
-  ret = Wire.read(); 		// receive DATA
-#else
-  ret = Wire.receive(); 	// receive DATA
-#endif
-  Wire.endTransmission(); 	// end transmission
-
-  return ret;
+   Wire.requestFrom(slaveAddress, (uint8_t)1); // 請求 1 位元組
+   return Wire.read();                  // 直接返回讀取到的數據
 }
 
-
-
-
+// 讀取 16-bit 數據
 uint16_t Inno3Pro_I2C::I2C_Read16(uint8_t slaveAddress, uint8_t dataAddress) 
 {
-    //150us Delay On Every I2C Transaction
-	delayMicroseconds(150); 
-    uint8_t u8Lsb;                //Storage Variable for LSB Reading
-    uint8_t u8Msb;                //Storage Variable for MSB Reading
+   Wire.beginTransmission(slaveAddress); // 開始傳輸
+   Wire.write(0x80);                    // PI Command Address (設備要求)
+   Wire.write(dataAddress);             // 發送寄存器位址
+   Wire.write(dataAddress);             // 再次發送寄存器位址 (設備要求)
+   Wire.endTransmission(false);         // 重啟條件 (no STOP)
 
- Wire.beginTransmission(slaveAddress); // start transmission to device 
- 
-#if (ARDUINO >= 100)
-  Wire.write(0x80); 			// PI Command Address
-  Wire.write(dataAddress); 		// sends register address to read from
-  Wire.write(dataAddress); 		// sends register address to read from  
-#else
-  Wire.send(0x80); 				// PI Command Address
-  Wire.send(dataAddress); 		// sends register address to read from
-  Wire.send(dataAddress); 		// sends register address to read from  
-#endif
-  Wire.endTransmission(); 		// end transmission
-  
-  //150us Delay On Every I2C Transaction
-  delayMicroseconds(150); 
-  
-  Wire.beginTransmission(slaveAddress); // start transmission to device 
-  Wire.requestFrom(slaveAddress,(uint8_t)0x02);	// send data n-bytes read
-  
-  
-#if (ARDUINO >= 100)
-    //Example  5V,  Returns F4 
-    u8Lsb =  Wire.read(); 		// receive DATA
-   
-    //Example  5V,  Returns 01
-    u8Msb =  Wire.read();        // receive DATA 
-
-#else
-   //Example  5V,  Returns F4 
-    u8Lsb =  Wire.receive(); 		// receive DATA
-   
-    //Example  5V,  Returns 01
-    u8Msb = Wire.receive();        // receive DATA 
-    
-  
-#endif
-  
-	//Wire.endTransmission(); 		// end transmission
-    //Returns 01F4    
-    return ((u8Msb<<8)|(u8Lsb));   
+   Wire.requestFrom(slaveAddress, (uint8_t)2); // 請求 2 位元組
+   uint8_t u8Lsb = Wire.read();         // 讀取低位元組
+   uint8_t u8Msb = Wire.read();         // 讀取高位元組
+   return (uint16_t)(u8Msb << 8) | u8Lsb; // 合併並返回
 }
-
